@@ -1,0 +1,1261 @@
+[
+  {
+    "id": "1",
+    "name": "Choisi (Box no 1)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.15am\nMonday-Friday (Local) - 6.00am for same day delivery\nSaturday & Sunday : no collections",
+    "lat": 49.455809,
+    "lng": -2.547594
+  },
+  {
+    "id": "98",
+    "name": "Port Soif Road - Grandes Rocques (Box no 98)",
+    "address": "Port Soif Road, Castel, Guernsey, GY5",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.15am\nSaturday & Sunday - No collections",
+    "lat": 49.485998,
+    "lng": -2.584898
+  },
+  {
+    "id": "114",
+    "name": "Green Lanes (Box no 114)",
+    "address": "Mon Plasir, St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.461688,
+    "lng": -2.551897
+  },
+  {
+    "id": "113",
+    "name": "Rue du Tertre (Box no 113)",
+    "address": "Tertre Lane, Vale, Guernsey, GY3",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.00am\nSaturday & Sunday - No collections",
+    "lat": 49.486772,
+    "lng": -2.522339
+  },
+  {
+    "id": "112",
+    "name": "Town Church -The Quay (Box no 112)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 10.50am\nMonday-Friday (Local) - 6.00am for same day delivery\nSaturday & Sunday - No collections",
+    "lat": 49.454847,
+    "lng": -2.536018
+  },
+  {
+    "id": "111",
+    "name": "Rue des Marettes (Box no 111)",
+    "address": "St Martin, Guernsey, GY4",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.426324,
+    "lng": -2.561837
+  },
+  {
+    "id": "110",
+    "name": "La Rue Maze (Box no 110)",
+    "address": "St Martin, Guernsey, GY4",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.436787,
+    "lng": -2.560437
+  },
+  {
+    "id": "109",
+    "name": "Rue de la Maladerie (Box no 109)",
+    "address": "St Saviour, Guernsey, GY7",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.00am\nSaturday & Sunday - No collections",
+    "lat": 49.462602,
+    "lng": -2.627889
+  },
+  {
+    "id": "108",
+    "name": "Les Hubits (Box no 108)",
+    "address": "St Martin, Guernsey, GY4",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.44248000000001,
+    "lng": -2.548163
+  },
+  {
+    "id": "105",
+    "name": "Queens Road (Box no 105)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.15am\nSaturday & Sunday - No collections",
+    "lat": 49.452057,
+    "lng": -2.5492360000000005
+  },
+  {
+    "id": "104",
+    "name": "Le Bouet (Box no 104)",
+    "address": "Orange Ville (Petit Bouet ), St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.30am\nSaturday & Sunday - No collections",
+    "lat": 49.466939,
+    "lng": -2.539301
+  },
+  {
+    "id": "103",
+    "name": "Route de Cobo (Box no 103)",
+    "address": "La Planque, Castel, Guernsey, GY5",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.15am\nSaturday & Sunday - No collections",
+    "lat": 49.467385,
+    "lng": -2.579277
+  },
+  {
+    "id": "102",
+    "name": "La Route des Long Camps (Box no 102)",
+    "address": "St Sampsons, Guernsey, GY2",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.00am\nSaturday & Sunday - No collections",
+    "lat": 49.473897,
+    "lng": -2.555974
+  },
+  {
+    "id": "101",
+    "name": "White Rock Harbour (Box no 101)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 11.30am\nSaturday & Sunday - No collections",
+    "lat": 49.45738500000001,
+    "lng": -2.529731
+  },
+  {
+    "id": "100",
+    "name": "La Rocquette (Box no 100)",
+    "address": "La Rocquettes Road, Castel, Guernsey, GY5",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.00am\nSaturday & Sunday - No collections",
+    "lat": 49.466479,
+    "lng": -2.600713
+  },
+  {
+    "id": "99",
+    "name": "Route de la Hougue du Pommier (Box no 99)",
+    "address": "Lilyvale, Castel, Guernsey, GY5 7FG",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.30am\nSaturday & Sunday - No collections",
+    "lat": 49.477229,
+    "lng": -2.578204
+  },
+  {
+    "id": "97",
+    "name": "La Mazotte (Box no 97)",
+    "address": "Houmtel Lane, Vale, Guernsey, GY3",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.493455,
+    "lng": -2.518616
+  },
+  {
+    "id": "116",
+    "name": "Airport Terminal (Box no 116)",
+    "address": "Forest, Guernsey, GY8",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 11.00am\nMonday-Friday (Local) - 6.00am for same day delivery\nSaturday & Sunday - No collections",
+    "lat": 49.432357,
+    "lng": -2.597966
+  },
+  {
+    "id": "88",
+    "name": "L'Islet Sub Post Office (Box no 88)",
+    "address": "Les Petites Mielles, St Sampson, Guernsey, GY2",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 4.30pm\nSub Post Office - 4.30pm\nMonday-Friday (Local) - 6.00am for same day delivery\nSaturday & Sunday - No collections",
+    "lat": 49.489901,
+    "lng": -2.547863
+  },
+  {
+    "id": "59",
+    "name": "Castel Douzaine (Box no 59)",
+    "address": "Castel, Guernsey, GY5",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 11.30am\nSaturday & Sunday - No collections",
+    "lat": 49.4646670833649,
+    "lng": -2.5863012000699372
+  },
+  {
+    "id": "81",
+    "name": "Cobo Sub Post Office (Box no 81)",
+    "address": "Route De Carteret, Castel, GUERNSEY, GY5 7UT",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 4.45pm\nSub Post Office - 4.45pm\nMonday-Friday (Local) - 6.00am for same day delivery\nSaturday & Sunday - No collections",
+    "lat": 49.47969700000001,
+    "lng": -2.588739
+  },
+  {
+    "id": "82",
+    "name": "Landes du Marche Garage (Box no 82)",
+    "address": "Vale, Guernsey, GY6",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 10.00am\nSaturday & Sunday - No collections",
+    "lat": 49.474552,
+    "lng": -2.564299
+  },
+  {
+    "id": "84",
+    "name": "Sandy Hook (Box no 84)",
+    "address": "L'Islet, St Sampson, Guernsey, GY2",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.488897,
+    "lng": -2.542884
+  },
+  {
+    "id": "85",
+    "name": "Rue des Bailleuls (Box no 85)",
+    "address": "St Andrew, Guernsey, GY6",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.44467,
+    "lng": -2.5733540000000006
+  },
+  {
+    "id": "86",
+    "name": "St Martin's Sub Post Office (Box no 86)",
+    "address": "Les Camps, St Martin, Guernsey, GY4",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 4.40pm\nSub Post Office - 4.40pm\nMonday-Friday (Local) - 6.00am for same day delivery\nSaturday & Sunday - No collections",
+    "lat": 49.434841,
+    "lng": -2.551854
+  },
+  {
+    "id": "89",
+    "name": "Fort Road (Box no 89)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.25am\nSaturday & Sunday - No collections",
+    "lat": 49.446317,
+    "lng": -2.540063
+  },
+  {
+    "id": "96",
+    "name": "Route de la Passee (Box no 96)",
+    "address": "Les Passee, St Sampson, Guernsey, GY2",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.15am\nSaturday & Sunday - No collections",
+    "lat": 49.492716,
+    "lng": -2.569127
+  },
+  {
+    "id": "90",
+    "name": "La Route du Braye (Box no 90)",
+    "address": "St Sampson, Guernsey, GY2",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.15am\nSaturday & Sunday - No collections",
+    "lat": 49.487406,
+    "lng": -2.534645
+  },
+  {
+    "id": "91",
+    "name": "Les Dicqs (Box no 91)",
+    "address": "Houmet Lane, Vale, Guernsey, GY6",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 11.15am\nSaturday & Sunday - No collections",
+    "lat": 49.494312,
+    "lng": -2.555265
+  },
+  {
+    "id": "92",
+    "name": "Forest Road (Box no 92)",
+    "address": "Forest, Guernsey, GY8",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.15am\nSaturday & Sunday - No collections",
+    "lat": 49.433334,
+    "lng": -2.580972
+  },
+  {
+    "id": "93",
+    "name": "Route des Talbots (Box no 93)",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.450983,
+    "lng": -2.577324
+  },
+  {
+    "id": "94",
+    "name": "Les Mielles Road (Box no 94)",
+    "address": "Rocque Balan, Les Mielles Road, Vale, Guernsey, GY3",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.499183,
+    "lng": -2.527649
+  },
+  {
+    "id": "95",
+    "name": "Rue du Douit du Moulin - Rocquaine (Box no 95)",
+    "address": "Rocquaine Road, St Pierre Du Bois, Guernsey, GY7",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.444552,
+    "lng": -2.648778
+  },
+  {
+    "id": "115",
+    "name": "Rue Sauvage (Box no 115)",
+    "address": "St Sampson, Guernsey, GY2",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.00am\nSaturday & Sunday - No collections",
+    "lat": 49.484255,
+    "lng": -2.555705
+  },
+  {
+    "id": "117",
+    "name": "L'Eclet (Box no 117)",
+    "address": "Route des Clos Landais, St Saviours, Guernsey, GY7",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.15am\nSaturday & Sunday - No collections",
+    "lat": 49.443052,
+    "lng": -2.629241
+  },
+  {
+    "id": "76",
+    "name": "La Route des Capelles (Box no 76)",
+    "address": "St Sampsons, Guernsey, GY2",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.00am\nSaturday & Sunday - No collections",
+    "lat": 49.477508,
+    "lng": -2.552454
+  },
+  {
+    "id": "154",
+    "name": "Arcade (Box no 154)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 10.50am\nSaturday & Sunday - No collections",
+    "lat": 49.454982,
+    "lng": -2.536974
+  },
+  {
+    "id": "143",
+    "name": "Richmond Avenue (Box no 143)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.45053,
+    "lng": -2.555877
+  },
+  {
+    "id": "144",
+    "name": "Rue des Marettes (Box no 144)",
+    "address": "St Martin, Guernsey, GY4",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.431205,
+    "lng": -2.568365
+  },
+  {
+    "id": "148",
+    "name": "Rue du Braye (Box no 148)",
+    "address": "St Pierre du Bois, Guernsey, GY7",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.454861,
+    "lng": -2.653155
+  },
+  {
+    "id": "149",
+    "name": "Route de Pleinmont (Box no 149)",
+    "address": "St Pierre du Bois, Guernsey, GY7",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.428812,
+    "lng": -2.652211
+  },
+  {
+    "id": "150",
+    "name": "Fort George (Box no 150)",
+    "address": "Rue Vautier, St Peter Port, Guernsey, GY1",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 11.25am\nSaturday & Sunday - No collections",
+    "lat": 49.445835,
+    "lng": -2.536576
+  },
+  {
+    "id": "152",
+    "name": "Beau Sejour (Box no 152)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.462431,
+    "lng": -2.540841
+  },
+  {
+    "id": "155",
+    "name": "The Bridge (Box no 155)",
+    "address": "Nocq Road, St Sampson, Guernsey, GY2",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.15am\nSub Post Office - 4.15pm\nSaturday & Sunday - No collections",
+    "lat": 49.482691,
+    "lng": -2.520193
+  },
+  {
+    "id": "141",
+    "name": "Rue des Landes (Box no 141)",
+    "address": "Vale, Guernsey, GY6",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.49411,
+    "lng": -2.524903
+  },
+  {
+    "id": "157",
+    "name": "Waitrose - Admiral Park (Box no 157)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 11.30am\nSaturday & Sunday - No collections",
+    "lat": 49.46766,
+    "lng": -2.537697
+  },
+  {
+    "id": "1012",
+    "name": "St Pierre Park Hotel - Rohais (Box 158)",
+    "address": "Rohais, St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.30am\nSaturday & Sunday - No collections",
+    "lat": 49.460147,
+    "lng": -2.561145
+  },
+  {
+    "id": "160",
+    "name": "S E B North Side (Box no 160)",
+    "address": "Vale, Guernsey, GY3",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 11.00am\nMonday-Friday (Local) - 6.00am for same day delivery\nSaturday & Sunday - No collections",
+    "lat": 49.48415800000001,
+    "lng": -2.518541
+  },
+  {
+    "id": "166",
+    "name": "Envoy House - La Vrangue (Box no 166)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "retained",
+    "collection_times": "Monday-Friday (Local) - 6.00am for same day delivery\nSaturday & Sunday - No collections",
+    "lat": 49.46629428844881,
+    "lng": -2.549531202377352
+  },
+  {
+    "id": "168",
+    "name": "Smith Street (Box no 168)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 11.30am\nMonday-Friday (Local) - 6.00am for same day delivery\nSaturday & Sunday - No collections",
+    "lat": 49.456692,
+    "lng": -2.536688
+  },
+  {
+    "id": "40",
+    "name": "Candie Cache Stores (Box no 40)",
+    "address": "Cambridge Park Road, St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.15am\nSaturday & Sunday - No collections",
+    "lat": 49.459274,
+    "lng": -2.542522
+  },
+  {
+    "id": "142",
+    "name": "Baugy Estate-Route de Jerbourg (Box no 142)",
+    "address": "Jerbourg Road, St Martin, Guernsey, GY4",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 11.00am\nSaturday & Sunday - No collections",
+    "lat": 49.429712,
+    "lng": -2.540352
+  },
+  {
+    "id": "140",
+    "name": "South Esplanade (Box no 140)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 10.50am\nSaturday & Sunday - No collections",
+    "lat": 49.452392,
+    "lng": -2.535932
+  },
+  {
+    "id": "119",
+    "name": "Les Grandes Maisons Road (Box no 119)",
+    "address": "St Sampsons, Guernsey, GY2",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 10.45am\nSaturday & Sunday - No collections",
+    "lat": 49.479516,
+    "lng": -2.521201
+  },
+  {
+    "id": "126",
+    "name": "Sir Charles Frossard House - La Charroterie (Box no 126)",
+    "address": "La Charroterie, St Peter Port, Guernsey, GY1",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nMonday-Friday (Local) - 6.00am for same day delivery\nSaturday & Sunday - No collections",
+    "lat": 49.450014,
+    "lng": -2.544022
+  },
+  {
+    "id": "120",
+    "name": "Rue du Gron (Box no 120)",
+    "address": "St Saviour, Guernsey, GY7",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.45am\nSaturday & Sunday - No collections",
+    "lat": 49.439027,
+    "lng": -2.608352
+  },
+  {
+    "id": "122",
+    "name": "Princess Elizabeth Hospital (Box no 122)",
+    "address": "Rue Mignot, St Martin, Guernsey, GY4",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.447928,
+    "lng": -2.557497
+  },
+  {
+    "id": "131",
+    "name": "Guelles Road (Box no 131)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.30am\nSaturday & Sunday - No collections",
+    "lat": 49.465921,
+    "lng": -2.545481
+  },
+  {
+    "id": "123",
+    "name": "Les Baissieres (Box no 123)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.30am\nSaturday & Sunday - No collections",
+    "lat": 49.466953,
+    "lng": -2.56314
+  },
+  {
+    "id": "124",
+    "name": "Le Grand Fort Road (Box no 124)",
+    "address": "St Sampson, Guernsey, GY2",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.00am\nSaturday & Sunday - No collections",
+    "lat": 49.48558,
+    "lng": -2.544687
+  },
+  {
+    "id": "125",
+    "name": "Longstore - Le Bouet (Box no 125)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.465133,
+    "lng": -2.536662
+  },
+  {
+    "id": "127",
+    "name": "Helston Estate (Box no 127)",
+    "address": "Castel, Guernsey, GY5",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.15am\nSaturday & Sunday - No collections",
+    "lat": 49.463634,
+    "lng": -2.579856
+  },
+  {
+    "id": "139",
+    "name": "Jerbourg Point ( Box no 139)",
+    "address": "Jerbourg Road, St Martin, Guernsey, GY4",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.00am\nSaturday & Sunday - No collections",
+    "lat": 49.423997,
+    "lng": -2.5329920000000006
+  },
+  {
+    "id": "129",
+    "name": "La Route de Farras (Box no 129)",
+    "address": "Forest, Guernsey, GY8",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.15am\nSaturday & Sunday - No collections",
+    "lat": 49.429956,
+    "lng": -2.604661
+  },
+  {
+    "id": "132",
+    "name": "Victoria Avenue (Box no 132)",
+    "address": "St Sampson, Guernsey, GY2",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.45am\nSaturday & Sunday - No collections",
+    "lat": 49.472628,
+    "lng": -2.534269
+  },
+  {
+    "id": "135",
+    "name": "Mill Street (Box no 135)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.10am\nSaturday & Sunday - No collections",
+    "lat": 49.453724,
+    "lng": -2.538335
+  },
+  {
+    "id": "136",
+    "name": "Route de Pleinmont (Box no 136)",
+    "address": "Torteval, Guernsey, GY8",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 10.45am\nSaturday & Sunday - No collections",
+    "lat": 49.427654,
+    "lng": -2.634423
+  },
+  {
+    "id": "137",
+    "name": "Rue des Goddards (Box no 137)",
+    "address": "Vazon Stores, Castel, Guernsey, GY5",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 11.15am\nSaturday & Sunday - No collections",
+    "lat": 49.469714,
+    "lng": -2.600724
+  },
+  {
+    "id": "138",
+    "name": "Les Grandes Mielles Lane (Box no 138)",
+    "address": "Vale, Guernsey, GY6",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.15am\nSaturday & Sunday - No collections",
+    "lat": 49.483489,
+    "lng": -2.5759940000000006
+  },
+  {
+    "id": "77",
+    "name": "Route St Clair (Box no 77)",
+    "address": "Vale Road, St Sampson, Guernsey, GY2",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 11.00am\nSaturday & Sunday - No collections",
+    "lat": 49.477829,
+    "lng": -2.5316410000000005
+  },
+  {
+    "id": "75",
+    "name": "Rue Frairies (Box no 75)",
+    "address": "St Andrews, Guernsey, GY6",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.443394000000005,
+    "lng": -2.583783
+  },
+  {
+    "id": "2",
+    "name": "Upland Road (Box no 2)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.15am\nMonday-Friday (Local) - 6.00am\nSaturday & Sunday - No collections",
+    "lat": 49.456712,
+    "lng": -2.540883
+  },
+  {
+    "id": "19",
+    "name": "Fairfield - Route de l'Eglise (Box no 19)",
+    "address": "Castel, GY5",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 11.30am\nSaturday & Sunday - No collections",
+    "lat": 49.458383000000005,
+    "lng": -2.576627
+  },
+  {
+    "id": "33",
+    "name": "Vale Douzaine Room - Maraitaine Road (Box no 33)",
+    "address": "Maraitaine Road, Vale, Guernsey, GY3",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.490096,
+    "lng": -2.525439
+  },
+  {
+    "id": "32",
+    "name": "Rue du Gele (Box no 32)",
+    "address": "Castel, Guernsey, GY5",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.00am\nSaturday & Sunday - No collections",
+    "lat": 49.46157,
+    "lng": -2.612557
+  },
+  {
+    "id": "31",
+    "name": "St Saviour's Church (Box no 31)",
+    "address": "Les Butes, St Saviours, Guernsey, GY7",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 10.45am\nSaturday & Sunday - No collections",
+    "lat": 49.445584,
+    "lng": -2.614167
+  },
+  {
+    "id": "30",
+    "name": "Havilland Road (Box no 30)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.44405,
+    "lng": -2.543721
+  },
+  {
+    "id": "29",
+    "name": "Manor Stores - Les Camps du Moulin (Box no 29)",
+    "address": "St Martin, Guernsey, GY4",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.45am\nSaturday & Sunday - No collections",
+    "lat": 49.434157,
+    "lng": -2.548206
+  },
+  {
+    "id": "28",
+    "name": "Route du Felconte (Box no 28)",
+    "address": "St Peter, Guernsey, GY7",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.15am\nSaturday & Sunday - No collections",
+    "lat": 49.454331,
+    "lng": -2.645946
+  },
+  {
+    "id": "27",
+    "name": "Rue des Reines (Box no 27)",
+    "address": "St Peter, Guernsey, GY7",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.45am\nSaturday & Sunday - No collections",
+    "lat": 49.428491,
+    "lng": -2.617278
+  },
+  {
+    "id": "26",
+    "name": "Rohais (Box no 26)",
+    "address": "Rohais, St Peter Port, Guernsey, GY1",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 4.45\nMonday-Friday (Local) - 6.00am for same day delivery\nSaturday & Sunday - No collections",
+    "lat": 49.460538,
+    "lng": -2.559342
+  },
+  {
+    "id": "25",
+    "name": "Rue des Grons (Box no 25)",
+    "address": "St Martin, Guernsey, GY4",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 10.45am\nSaturday & Sunday - No collections",
+    "lat": 49.43184,
+    "lng": -2.5617460000000003
+  },
+  {
+    "id": "24",
+    "name": "Vale Church (Box no 24)",
+    "address": "L'Ancresse Road, Guernsey, GY3",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.493455,
+    "lng": -2.537005
+  },
+  {
+    "id": "23",
+    "name": "Summerfield Road (Box no 23)",
+    "address": "St Sampsons, Guernsey, GY3",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.00am\nSaturday & Sunday - No collections",
+    "lat": 49.486817,
+    "lng": -2.51573
+  },
+  {
+    "id": "22",
+    "name": "La Rochelle Road (Box no 22)",
+    "address": "Vale, Guernsey, GY3",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.498026,
+    "lng": -2.510011
+  },
+  {
+    "id": "21",
+    "name": "King's Mills (Box no 21)",
+    "address": "Les Grands Moulins, Castel, GY5",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.00am\nSaturday & Sunday - No collections",
+    "lat": 49.458571,
+    "lng": -2.598503
+  },
+  {
+    "id": "20",
+    "name": "Les Banques - First Tower Lane (Box no 20)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.45am\nSaturday & Sunday - No collections",
+    "lat": 49.469297,
+    "lng": -2.53428
+  },
+  {
+    "id": "18",
+    "name": "Fermain (Box no 18)",
+    "address": "Fermain Road, St Martins, Guernsey, GY4",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.25am\nSaturday & Sunday - No collections",
+    "lat": 49.438406,
+    "lng": -2.542541
+  },
+  {
+    "id": "35",
+    "name": "Rue des Cambrees (Box no 35)",
+    "address": "Les Sages, Rue des Cambrees, St Peter, Guernsey, GY7",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.434171,
+    "lng": -2.639186
+  },
+  {
+    "id": "9",
+    "name": "Cambridge Park - Les Cotils (Box no 9)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.15am\nSaturday & Sunday - No collections",
+    "lat": 49.460035,
+    "lng": -2.539494
+  },
+  {
+    "id": "3",
+    "name": "Rouge Huis Avenue (Box no 3)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.15am\nSaturday & Sunday - No collections",
+    "lat": 49.45999,
+    "lng": -2.545041
+  },
+  {
+    "id": "4",
+    "name": "Weighbridge (Box no 4)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 11.30am\nSaturday & Sunday - No collections",
+    "lat": 49.458355,
+    "lng": -2.534741
+  },
+  {
+    "id": "5",
+    "name": "Hauteville Top (Box no 5)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.50am\nSaturday & Sunday - No collections",
+    "lat": 49.450369,
+    "lng": -2.539837
+  },
+  {
+    "id": "6",
+    "name": "Ivy Gates - Rohais (Box no 6)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.458697,
+    "lng": -2.552927
+  },
+  {
+    "id": "7",
+    "name": "Mount Durand (Box No 7)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.451694,
+    "lng": -2.544751
+  },
+  {
+    "id": "8",
+    "name": "St Peters Sub Post Office (Box no 8)",
+    "address": "Les Paysans Road, St Pierre Du Bois, Guernsey, GY7",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 4.15pm,\nSub Post Office Collection 4.15pm\nMonday-Friday (Local) - 6.00am for same day delivery\nSaturday & Sunday - No collections",
+    "lat": 49.437617,
+    "lng": -2.627079
+  },
+  {
+    "id": "10",
+    "name": "La Piette Road (Box no 10)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.463355,
+    "lng": -2.535181
+  },
+  {
+    "id": "17",
+    "name": "Capelles (Box no 17)",
+    "address": "Vale, Guernsey, GY3",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.00am\nSaturday & Sunday - No collections",
+    "lat": 49.481272,
+    "lng": -2.5566390000000006
+  },
+  {
+    "id": "11",
+    "name": "Trinity Square (Box no 11)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.452176,
+    "lng": -2.540621
+  },
+  {
+    "id": "12",
+    "name": "Union Street (Box no 12)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 10.15am\nSaturday & Sunday - No collections",
+    "lat": 49.455161,
+    "lng": -2.540835
+  },
+  {
+    "id": "13",
+    "name": "Victoria Road (Box no 13)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.453926,
+    "lng": -2.544816
+  },
+  {
+    "id": "14",
+    "name": "Amherst (Box no 14)",
+    "address": "Rouge Rue, St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.464052,
+    "lng": -2.542841
+  },
+  {
+    "id": "15",
+    "name": "Ville au Roi (Box no 15)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.4467,
+    "lng": -2.553704
+  },
+  {
+    "id": "16",
+    "name": "Collings Road (Box no 16)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.45am\nSaturday & Sunday - No collections",
+    "lat": 49.46355,
+    "lng": -2.553484
+  },
+  {
+    "id": "34",
+    "name": "Route Militaire (Box no 34)",
+    "address": "The Shrubberies, Route Militaire, St Sampson, Guernsey, GY2",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.00am\nSaturday & Sunday - No collections",
+    "lat": 49.482241,
+    "lng": -2.532907
+  },
+  {
+    "id": "36",
+    "name": "Vauvert (Box no 36)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.15am\nSaturday & Sunday - No collections",
+    "lat": 49.455931,
+    "lng": -2.544006
+  },
+  {
+    "id": "74",
+    "name": "The Bridge (Box No 74)",
+    "address": "St Sampsons, Guernsey, GY2",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 4.15pm\nSub Post Office - 4.15pm\nMonday-Friday (Local) - 6.00am for same day delivery\nSaturday & Sunday - No collections",
+    "lat": 49.48290300000001,
+    "lng": -2.520075
+  },
+  {
+    "id": "64",
+    "name": "Rue des Varendes (Box no 64)",
+    "address": "Castel, Guernsey, GY5",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.30am\nSaturday & Sunday - No collections",
+    "lat": 49.463648,
+    "lng": -2.570693
+  },
+  {
+    "id": "57",
+    "name": "Rue des Bordeaux (Box no 57)",
+    "address": "Vale, Guernsey, GY3",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.4911,
+    "lng": -2.508252
+  },
+  {
+    "id": "58",
+    "name": "La Rue de la Vrangue (Box no 58)",
+    "address": "Forest, Guernsey, GY8",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.45am\nSaturday & Sunday - No collections",
+    "lat": 49.42503,
+    "lng": -2.598181
+  },
+  {
+    "id": "60",
+    "name": "Route de la Croix au Bailiff (Box no 60)",
+    "address": "Monnaie Road, St Andrew, Guernsey, GY6",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.453131,
+    "lng": -2.570908
+  },
+  {
+    "id": "61",
+    "name": "Hauteville (Box no 61)",
+    "address": "Victor Hugo Lower Hauteville, St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.50am\nSaturday & Sunday - No collections",
+    "lat": 49.45149200000001,
+    "lng": -2.53782
+  },
+  {
+    "id": "62",
+    "name": "Rue des Villains (Box no 62)",
+    "address": "Torteval, Guernsey, GY8",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.432496,
+    "lng": -2.659206
+  },
+  {
+    "id": "63",
+    "name": "Forest Sub Post Office (Box no 63)",
+    "address": "Le Bourg, Forest, Guernsey, GY8",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 4.25pm\nSub Post Office - 4.25pm\nMonday-Friday (Local) - 6.00am for same day delivery\nSaturday & Sunday - No collections",
+    "lat": 49.431533,
+    "lng": -2.592752
+  },
+  {
+    "id": "66",
+    "name": "Les Canichers (Box no 66)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.461005,
+    "lng": -2.535524
+  },
+  {
+    "id": "55",
+    "name": "Albecq, La Banquette (Box no 55)",
+    "address": "Castel, G, GY5",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.15am\nSaturday & Sunday - No collections",
+    "lat": 49.474113,
+    "lng": -2.598728
+  },
+  {
+    "id": "68",
+    "name": "Les Merriennes (Box no 68)",
+    "address": "St Martin, Guernsey, GY4",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.439138,
+    "lng": -2.556918
+  },
+  {
+    "id": "69",
+    "name": "Rue Perelle (Box no 69)",
+    "address": "St Saviour, Guernsey, GY7",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 10.45am\nSaturday & Sunday - No collections",
+    "lat": 49.458041,
+    "lng": -2.635989
+  },
+  {
+    "id": "70",
+    "name": "Havelet (Box no 70)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.50am\nSaturday & Sunday - No collections",
+    "lat": 49.450223,
+    "lng": -2.536511
+  },
+  {
+    "id": "71",
+    "name": "Route de Pleinmont (Box no 71)",
+    "address": "Torteval, Guernsey, GY8",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.427772,
+    "lng": -2.640173
+  },
+  {
+    "id": "72",
+    "name": "Le Vallon (Box no 72)",
+    "address": "St Martin, Guernsey, GY4",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.45am\nSaturday & Sunday - No collections",
+    "lat": 49.430822,
+    "lng": -2.54518
+  },
+  {
+    "id": "73",
+    "name": "Rue des Brehauts (Box no 73)",
+    "address": "St Peter, Guernsey, GY7",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.15am\nSaturday & Sunday - No collections",
+    "lat": 49.435831,
+    "lng": -2.622111
+  },
+  {
+    "id": "56",
+    "name": "Route des Coutanchez (Box no 56)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.30am\nSaturday & Sunday - No collections",
+    "lat": 49.470021,
+    "lng": -2.546811
+  },
+  {
+    "id": "54",
+    "name": "Le Mont Saint (Box no 54)",
+    "address": "St Saviour, Guernsey, GY7",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.45am\nSaturday & Sunday - No collections",
+    "lat": 49.4568,
+    "lng": -2.624166
+  },
+  {
+    "id": "37",
+    "name": "Co-op En Route St Andres (Box no 37)",
+    "address": "Route De St Andrew, St Andrew, Guernsey, GY6",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.449271,
+    "lng": -2.563103
+  },
+  {
+    "id": "45",
+    "name": "Landes du Marche - Shiloh Church (Box no 45)",
+    "address": "Vale, Guernsey, GY6",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.00am\nSaturday & Sunday - No collections",
+    "lat": 49.473046,
+    "lng": -2.567754
+  },
+  {
+    "id": "38",
+    "name": "La Route des Cornus (Box no 38)",
+    "address": "St Martin, Guernsey, GY4",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.435531,
+    "lng": -2.567201
+  },
+  {
+    "id": "39",
+    "name": "Mont Arrive (Box no 39)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.467315,
+    "lng": -2.542208
+  },
+  {
+    "id": "41",
+    "name": "Le Varclin (Box no 41)",
+    "address": "St Martin, Guernsey, GY4",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.00am\nSaturday & Sunday - No collections",
+    "lat": 49.434631,
+    "lng": -2.543571
+  },
+  {
+    "id": "42",
+    "name": "Rue de Putron (Box no 42)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.25am\nSaturday & Sunday - No collections",
+    "lat": 49.43939,
+    "lng": -2.538561
+  },
+  {
+    "id": "43",
+    "name": "Les Ozouets Road (Box no 43)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 11.30am\nSaturday & Sunday - No collections",
+    "lat": 49.464178,
+    "lng": -2.557433
+  },
+  {
+    "id": "44",
+    "name": "Le Bordage - The Market (Box no 44)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 4.20pm\nMonday-Friday (Local) - 6.00am for same day delivery\nSaturday & Sunday - No collections",
+    "lat": 49.453696,
+    "lng": -2.538134
+  },
+  {
+    "id": "46",
+    "name": "Les Mourants (Box no 46)",
+    "address": "St Martin, Guernsey, GY4",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.438552,
+    "lng": -2.570372
+  },
+  {
+    "id": "53",
+    "name": "Les Barras Lane (Box no 53)",
+    "address": "Vale, Guernsey, GY6",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 11.15am\nSaturday & Sunday - No collections",
+    "lat": 49.486291,
+    "lng": -2.5646
+  },
+  {
+    "id": "47",
+    "name": "Les Bas Courtils Road (Box no 47)",
+    "address": "Les Banques, St Sampson, Guernsey, GY2",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.45am\nSaturday & Sunday - No collections",
+    "lat": 49.475786,
+    "lng": -2.526909
+  },
+  {
+    "id": "48",
+    "name": "King's Road (Box no 48)",
+    "address": "St Peter Port, Guernsey, GY1",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 10.30am\nSaturday & Sunday - No collections",
+    "lat": 49.453466,
+    "lng": -2.55239
+  },
+  {
+    "id": "49",
+    "name": "Rue Cohu (Box no 49)",
+    "address": "Castel, Guernsey, GY5",
+    "status": "retained",
+    "collection_times": "Monday-Friday (All Destinations) - 11.15am\nSaturday & Sunday - No collections",
+    "lat": 49.470648,
+    "lng": -2.574105
+  },
+  {
+    "id": "50",
+    "name": "Rue des Monts (Box no 50)",
+    "address": "Delancey, St Sampson, Guernsey, GY2",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.45am\nSaturday & Sunday - No collections",
+    "lat": 49.479948,
+    "lng": -2.527199
+  },
+  {
+    "id": "51",
+    "name": "Les Effards Road (Box no 51)",
+    "address": "Baubigny, St Sampson, Guernsey, GY2",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.15am\nSaturday & Sunday - No collections",
+    "lat": 49.481635,
+    "lng": -2.543249
+  },
+  {
+    "id": "52",
+    "name": "Rue du Moulin Huet (Box no 52)",
+    "address": "St Martin, Guernsey, GY4",
+    "status": "proposed_closure",
+    "collection_times": "Monday-Friday (All Destinations) - 10.45am\nSaturday & Sunday - No collections",
+    "lat": 49.430675,
+    "lng": -2.555469
+  }
+]
