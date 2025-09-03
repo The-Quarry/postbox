@@ -109,16 +109,20 @@
   <script>
   (function () {
     const MAP_CENTER = [49.458, -2.56], MAP_ZOOM = 12, NEAREST_COUNT = 5;
-    const GUERNSEY_BOUNDS = L.latLngBounds([49.42, -2.70], [49.51, -2.49]);
+    const GUERNSEY_BOUNDS = L.latLngBounds([49.40, -2.75], [49.53, -2.45]);
 
     // --- Map (single declaration) ---
     const leafletmap = L.map('map', {
       center: MAP_CENTER,
       zoom: MAP_ZOOM,
-      maxBounds: GUERNSEY_BOUNDS.pad(0.20),
-      maxBoundsViscosity: 0.8,
+      maxBounds: GUERNSEY_BOUNDS.pad(0.30),
+      maxBoundsViscosity: 0.3,
       minZoom: 11
     });
+
+    // track if user has interacted
+    let userMoved = false;
+    leafletmap.on('movestart zoomstart', () => { userMoved = true; });
 
     // --- Basemap (Carto Light) ---
     const base = L.tileLayer(
@@ -208,34 +212,51 @@
         allMarkers.push(m);
         (p.status === 'proposed_closure' ? closureCluster : retainedCluster).addLayer(m);
       });
+
       leafletmap.addLayer(retainedCluster);
       leafletmap.addLayer(closureCluster);
 
-      const dataBounds = markers.length ? L.featureGroup(markers).getBounds().pad(0.12) : GUERNSEY_BOUNDS;
+      // Compute bounds *after* markers exist
+      const markerBounds = markers.length
+        ? L.featureGroup(markers).getBounds().pad(0.12)
+        : GUERNSEY_BOUNDS;
+
+      // Always include the whole island so we don't bias north
+      const targetBounds = L.latLngBounds(
+        markerBounds.getSouthWest(),
+        markerBounds.getNorthEast()
+      ).extend(GUERNSEY_BOUNDS);
 
       function leftPadPx() {
         if (panel.style.display === 'none') return 10;
         return (panel.offsetLeft || 10) + (panel.offsetWidth || 320) + 12;
       }
+
       function applyFit() {
-        leafletmap.fitBounds(dataBounds, {
+        if (userMoved) return; // don't fight the user
+        leafletmap.fitBounds(targetBounds, {
           paddingTopLeft: [leftPadPx(), 10],
           paddingBottomRight: [10, 10],
           maxZoom: (window.innerWidth <= 640) ? 14 : 15
         });
-        // tiny nudge to counter occasional vertical bias
         if (panel.style.display !== 'none' && window.innerWidth > 640) {
           leafletmap.panBy([0, -20], { animate: false });
         }
       }
 
-      // Run once when map/base ready, and on UI changes
+      // Prevent “grey/jumps”: only fit once tiles are ready
+      base.once('load', () => { if (!userMoved) applyFit(); });
       leafletmap.whenReady(applyFit);
-      base.on('load', applyFit);
-      requestAnimationFrame(applyFit);
-      hideBtn.addEventListener('click', () => setTimeout(applyFit, 50));
-      showBtn.addEventListener('click', () => setTimeout(applyFit, 50));
-      window.addEventListener('orientationchange', () => setTimeout(applyFit, 200));
+
+      // Re-apply on panel toggle (but only if user hasn’t moved yet)
+      hideBtn.addEventListener('click', () => {
+        closePanel();
+        if (!userMoved) setTimeout(applyFit, 50);
+      });
+      showBtn.addEventListener('click', () => {
+        openPanel();
+        if (!userMoved) setTimeout(applyFit, 50);
+      });
     }
 
     // --- Text filter ---
