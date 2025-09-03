@@ -24,6 +24,11 @@
       position:absolute; top:8px; right:8px; border:0; background:none; font-size:18px; cursor:pointer;
     }
     #showPanel {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 1001;
+      display: none;           /* stays hidden unless ?embed=1 or panel is closed */
       font-size: 14px;
       background: #fff;
       border: 1px solid #ccc;
@@ -123,7 +128,9 @@
       ).addTo(map);
 
         const GUERNSEY_BOUNDS = L.latLngBounds([49.42, -2.70], [49.51, -2.49]);
-
+        map.setMaxBounds(GUERNSEY_BOUNDS.pad(0.20)); // keep the map from drifting off-island
+        map.setMaxBoundsViscosity(0.8);              // soft lock at the edge
+        map.setMinZoom(11);                          // prevents super-zoomed grey starts
    // Make Leaflet re-measure after the iframe/page settles
     function settleReflow() {
       let n = 0;
