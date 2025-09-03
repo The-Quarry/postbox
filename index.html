@@ -107,12 +107,8 @@
     ).addTo(map);
 
     const base = L.tileLayer(
-      'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-      {
-        attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
-        subdomains: 'abcd',
-        maxZoom: 20
-      }
+      'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?v=2',
+      { attribution: '…', subdomains: 'abcd', maxZoom: 20 }
     ).addTo(map);
 
     console.log('Basemap URL:', base._url); // should show "...cartocdn.com/light_all/..."
