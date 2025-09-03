@@ -24,8 +24,12 @@
       position:absolute; top:8px; right:8px; border:0; background:none; font-size:18px; cursor:pointer;
     }
     #showPanel {
-      position:absolute; top:10px; left:10px; z-index:1001;
-      padding:6px 10px; border-radius:8px; border:1px solid #ccc; background:#fff; cursor:pointer; display:none;
+      font-size: 14px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 6px 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     /* Blue clusters (avoid green/orange defaults) */
     .marker-cluster-small  { background-color: rgba(135,206,250,.6); }
@@ -49,7 +53,7 @@
 </head>
 <body>
   <div id="map"></div>
-  <button id="showPanel">☰ Search</button>
+  <button id="showPanel">Search</button>
 
   <div id="panel" class="panel">
     <button id="hidePanel">✕</button>
@@ -117,6 +121,8 @@
           maxZoom: 20
         }
       ).addTo(map);
+
+        const GUERNSEY_BOUNDS = L.latLngBounds([49.42, -2.70], [49.51, -2.49]);
 
    // Make Leaflet re-measure after the iframe/page settles
     function settleReflow() {
@@ -195,37 +201,39 @@
         map.addLayer(retainedCluster);
         map.addLayer(closureCluster);
 
-        // Fallback island bounds (Guernsey only)
-        const GUERNSEY_BOUNDS = L.latLngBounds([49.42, -2.70], [49.51, -2.49]);
-
-        // Bounds from data (or fallback)
         const dataBounds = markers.length
-          ? L.featureGroup(markers).getBounds().pad(0.2)
+          ? L.featureGroup(markers).getBounds().pad(0.12)   // small pad; we’ll add left-pad for panel
           : GUERNSEY_BOUNDS;
 
-        function leftPad() {
+        function leftPadPx() {
           const panel = document.getElementById('panel');
-          if (!panel || panel.style.display === 'none') return 20;
-          const left = panel.offsetLeft || 10;
-          const w    = panel.offsetWidth || 320;
-          return left + w + 20; // include a small gutter
+          if (!panel || panel.style.display === 'none') return 10;
+          return (panel.offsetLeft || 10) + (panel.offsetWidth || 320) + 12; // left + width + gutter
         }
 
-        // Apply initial fit with a sensible max zoom (prevents “grey zoomed-in” on mobile)
         const applyFit = () => {
-          const bounds = dataBounds.isValid() ? dataBounds : GUERNSEY_BOUNDS;
-          map.fitBounds(bounds, {
-            paddingTopLeft:     [leftPad(), 20],
-            paddingBottomRight: [20, 20],
-            maxZoom: 15         // cap initial zoom so we don't over-zoom to blank tiles
+          const padLeft = leftPadPx();
+          const padTop  = 10;            // keep small vertical padding
+          const padBR   = 10;
+
+          map.fitBounds(dataBounds, {
+            paddingTopLeft:     [padLeft, padTop],   // horizontal shift only
+            paddingBottomRight: [padBR,  padBR],
+            maxZoom: (window.innerWidth <= 640) ? 14 : 15  // avoid over-zoom grey on phones
           });
+
+          // Tiny corrective nudge up to counter any residual vertical bias on some embeds
+          if (panel && panel.style.display !== 'none' && window.innerWidth > 640) {
+            map.panBy([0, -20], { animate: false });  // 20px up
+          }
+
           settleReflow();
         };
 
-        // Run after clusters render and layout is stable
+        // Run after clusters render and layout settles
         requestAnimationFrame(applyFit);
 
-        // Re-apply when the panel is shown/hidden or on orientation changes
+        // Re-apply when UI/layout changes
         document.getElementById('hidePanel')?.addEventListener('click', () => setTimeout(applyFit, 50));
         document.getElementById('showPanel')?.addEventListener('click', () => setTimeout(applyFit, 50));
         window.addEventListener('orientationchange', () => setTimeout(applyFit, 200));
