@@ -223,6 +223,9 @@
           const padTop  = 10;            // keep small vertical padding
           const padBR   = 10;
 
+          map.whenReady(applyFit);
+          base.on('load', applyFit);
+
           map.fitBounds(dataBounds, {
             paddingTopLeft:     [padLeft, padTop],   // horizontal shift only
             paddingBottomRight: [padBR,  padBR],
