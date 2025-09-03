@@ -128,10 +128,14 @@
       ).addTo(map);
 
         const GUERNSEY_BOUNDS = L.latLngBounds([49.42, -2.70], [49.51, -2.49]);
-        map.setMaxBounds(GUERNSEY_BOUNDS.pad(0.20)); // keep the map from drifting off-island
-        map.setMaxBoundsViscosity(0.8);              // soft lock at the edge
-        map.setMinZoom(11);                          // prevents super-zoomed grey starts
-   // Make Leaflet re-measure after the iframe/page settles
+        const map = L.map('map', {
+          center: MAP_CENTER,
+          zoom: MAP_ZOOM,
+          maxBounds: GUERNSEY_BOUNDS.pad(0.20), // keeps view on-island
+          maxBoundsViscosity: 0.8,               // soft lock at the edge
+          minZoom: 11                             // avoids over-zoomed grey starts
+        });
+                              
     function settleReflow() {
       let n = 0;
       const bump = () => {
