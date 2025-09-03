@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
   <style>
     html, body { height:100%; margin:0; }
-    #map { height: 100dvh; }
+    #map { height: 100%; }
     .panel {
       position:absolute; z-index:1000; left:10px; top:10px;
       background:#fff; border-radius:12px; box-shadow:0 2px 12px rgba(0,0,0,.15);
@@ -111,16 +111,16 @@
         }
       ).addTo(map);
 
-      // Make Leaflet re-measure when the iframe/page finishes sizing
-      function relayout() { map.invalidateSize(true); }
+   // Make Leaflet re-measure after the iframe/page settles
+    function settleReflow() {
+      [40, 200, 600].forEach(t => setTimeout(() => map.invalidateSize(true), t));
+    }
+    window.addEventListener('load', settleReflow);
+    new ResizeObserver(settleReflow).observe(document.body);
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(settleReflow); }
+    base.on('load', settleReflow);
 
-      window.addEventListener('load', () => {
-        setTimeout(relayout, 50);
-        setTimeout(relayout, 300);  // run twice to be safe after fonts/layout settle
-      });
-
-      // Re-measure on any size changes inside the iframe
-      new ResizeObserver(() => relayout()).observe(document.body);
+    
 
       console.log('Basemap URL:', base._url); // should include basemaps.cartocdn.com/light_all
 
@@ -206,9 +206,10 @@
         // Defer the fit one frame so clusters are present and map size is final
         requestAnimationFrame(() => {
           map.fitBounds(bounds, {
-            paddingTopLeft:     [computeLeftPad(), 20],
+            paddingTopLeft: [computeLeftPad(), 20],
             paddingBottomRight: [20, 20]
           });
+          settleReflow(); // re-measure again after we fit
         });
       }
 
@@ -281,6 +282,13 @@
           const inferred=fallbackFromDataset(pcPretty); if(inferred) return inferred; throw new Error('No results');
         }
         const q=/guernsey/i.test(raw)?raw:`${raw}, Guernsey`; const c=await nominatim({ q }); return c[0]?L.latLng(+c[0].lat,+c[0].lon):Promise.reject('No results');
+      }
+
+      const params = new URLSearchParams(location.search);
+        if (params.get('embed') === '1') {
+          panel.style.display = 'none';
+          showBtn.style.display = 'block';
+          settleReflow();
       }
 
       // 9) UI wires
