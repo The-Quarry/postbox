@@ -213,7 +213,7 @@
           const styles = getComputedStyle(panel);
           const left   = parseInt(styles.left, 10) || 0;      // e.g. 10px
           const width  = panel.offsetWidth || 320;            // actual rendered width
-          const gutter = 10;                                   // little breathing room
+          const gutter = 20;                                   // little breathing room
           return left + width + gutter;                        // total left padding in px
         }
 
