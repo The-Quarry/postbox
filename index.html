@@ -49,7 +49,7 @@
 </head>
 <body>
   <div id="map"></div>
-  <button id="showPanel">☰ Show</button>
+  <button id="showPanel">☰ Search</button>
 
   <div id="panel" class="panel">
     <button id="hidePanel">✕</button>
@@ -120,15 +120,13 @@
 
    // Make Leaflet re-measure after the iframe/page settles
     function settleReflow() {
-      // Re-run a few times as fonts/layout/iframe height settle
       let n = 0;
       const bump = () => {
         map.invalidateSize(true);
-        if (++n < 8) setTimeout(bump, 150);  // ~1.2s total
+        if (++n < 8) setTimeout(bump, 150); // ~1.2s total
       };
       bump();
     }
-
     window.addEventListener('load', settleReflow);
     new ResizeObserver(settleReflow).observe(document.body);
     if (document.fonts && document.fonts.ready) { document.fonts.ready.then(settleReflow); }
@@ -197,34 +195,40 @@
         map.addLayer(retainedCluster);
         map.addLayer(closureCluster);
 
-        if (!markers.length) {
-          map.setView(MAP_CENTER, MAP_ZOOM);
-          return;
-        }
+        // Fallback island bounds (Guernsey only)
+        const GUERNSEY_BOUNDS = L.latLngBounds([49.42, -2.70], [49.51, -2.49]);
 
-        // Bounds for all markers
-        const group  = L.featureGroup(markers);
-        const bounds = group.getBounds().pad(0.2);
+        // Bounds from data (or fallback)
+        const dataBounds = markers.length
+          ? L.featureGroup(markers).getBounds().pad(0.2)
+          : GUERNSEY_BOUNDS;
 
-        // Compute left padding from the real panel size/position
-        function computeLeftPad() {
+        function leftPad() {
           const panel = document.getElementById('panel');
           if (!panel || panel.style.display === 'none') return 20;
-          const styles = getComputedStyle(panel);
-          const left   = parseInt(styles.left, 10) || 0;      // e.g. 10px
-          const width  = panel.offsetWidth || 320;            // actual rendered width
-          const gutter = 20;                                   // little breathing room
-          return left + width + gutter;                        // total left padding in px
+          const left = panel.offsetLeft || 10;
+          const w    = panel.offsetWidth || 320;
+          return left + w + 20; // include a small gutter
         }
 
-        // Defer the fit one frame so clusters are present and map size is final
-        requestAnimationFrame(() => {
+        // Apply initial fit with a sensible max zoom (prevents “grey zoomed-in” on mobile)
+        const applyFit = () => {
+          const bounds = dataBounds.isValid() ? dataBounds : GUERNSEY_BOUNDS;
           map.fitBounds(bounds, {
-            paddingTopLeft: [computeLeftPad(), 20],
-            paddingBottomRight: [20, 20]
+            paddingTopLeft:     [leftPad(), 20],
+            paddingBottomRight: [20, 20],
+            maxZoom: 15         // cap initial zoom so we don't over-zoom to blank tiles
           });
-          settleReflow(); // re-measure again after we fit
-        });
+          settleReflow();
+        };
+
+        // Run after clusters render and layout is stable
+        requestAnimationFrame(applyFit);
+
+        // Re-apply when the panel is shown/hidden or on orientation changes
+        document.getElementById('hidePanel')?.addEventListener('click', () => setTimeout(applyFit, 50));
+        document.getElementById('showPanel')?.addEventListener('click', () => setTimeout(applyFit, 50));
+        window.addEventListener('orientationchange', () => setTimeout(applyFit, 200));
       }
 
       // 6) Filters
