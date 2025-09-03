@@ -38,6 +38,13 @@
       .panel{ left:8px; right:8px; bottom:8px; top:auto; width:auto; max-width:none; max-height:46dvh; overflow:auto; touch-action:pan-y; }
       .row button,.row input[type="text"],.row input[type="search"]{ min-height:40px; font-size:16px; }
     }
+    /* Make sure Leaflet tiles/icons are not scaled by global img rules */
+    .leaflet-container img,
+    .leaflet-container .leaflet-tile,
+    .leaflet-container .leaflet-marker-icon,
+    .leaflet-container .leaflet-marker-shadow {
+      max-width: none !important;
+    }
   </style>
 </head>
 <body>
@@ -113,8 +120,15 @@
 
    // Make Leaflet re-measure after the iframe/page settles
     function settleReflow() {
-      [40, 200, 600].forEach(t => setTimeout(() => map.invalidateSize(true), t));
+      // Re-run a few times as fonts/layout/iframe height settle
+      let n = 0;
+      const bump = () => {
+        map.invalidateSize(true);
+        if (++n < 8) setTimeout(bump, 150);  // ~1.2s total
+      };
+      bump();
     }
+
     window.addEventListener('load', settleReflow);
     new ResizeObserver(settleReflow).observe(document.body);
     if (document.fonts && document.fonts.ready) { document.fonts.ready.then(settleReflow); }
