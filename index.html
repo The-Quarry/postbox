@@ -111,6 +111,17 @@
         }
       ).addTo(map);
 
+      // Make Leaflet re-measure when the iframe/page finishes sizing
+      function relayout() { map.invalidateSize(true); }
+
+      window.addEventListener('load', () => {
+        setTimeout(relayout, 50);
+        setTimeout(relayout, 300);  // run twice to be safe after fonts/layout settle
+      });
+
+      // Re-measure on any size changes inside the iframe
+      new ResizeObserver(() => relayout()).observe(document.body);
+
       console.log('Basemap URL:', base._url); // should include basemaps.cartocdn.com/light_all
 
       // 2) Panel show/hide
