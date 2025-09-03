@@ -98,10 +98,24 @@
       // 1) Init map
       const map = L.map('map').setView(MAP_CENTER, MAP_ZOOM);
       console.log('Map ok?', map instanceof L.Map);
-      // OSM base (very reliable)
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19, attribution: '&copy; OpenStreetMap contributors'
-      }).addTo(map);
+      // Base layer – Carto Light (Positron)
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 20
+      }
+    ).addTo(map);
+
+    const base = L.tileLayer(
+      'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+      {
+        attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+        subdomains: 'abcd',
+        maxZoom: 20
+      }
+    ).addTo(map);
+
+    console.log('Basemap URL:', base._url); // should show "...cartocdn.com/light_all/..."
 
       // 2) Panel show/hide
       const panel = document.getElementById('panel');
