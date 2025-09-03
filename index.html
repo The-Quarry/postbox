@@ -98,20 +98,20 @@
       // 1) Init map
       const map = L.map('map').setView(MAP_CENTER, MAP_ZOOM);
       console.log('Map ok?', map instanceof L.Map);
-      // Base layer – Carto Light (Positron)
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 20
-      }
-    ).addTo(map);
+      
+      // --- Basemap (Carto Light / Positron) ---
+      const base = L.tileLayer(
+        'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?v=3', // cache-bust
+        {
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors ' +
+            '&copy; <a href="https://carto.com/">CARTO</a>',
+          subdomains: 'abcd',
+          maxZoom: 20
+        }
+      ).addTo(map);
 
-    const base = L.tileLayer(
-      'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?v=2',
-      { attribution: '…', subdomains: 'abcd', maxZoom: 20 }
-    ).addTo(map);
-
-    console.log('Basemap URL:', base._url); // should show "...cartocdn.com/light_all/..."
+      console.log('Basemap URL:', base._url); // should include basemaps.cartocdn.com/light_all
 
       // 2) Panel show/hide
       const panel = document.getElementById('panel');
