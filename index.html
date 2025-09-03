@@ -159,25 +159,46 @@
         return fetch('postboxes.json', { cache:'no-cache' })
           .then(r=>{ if(!r.ok) throw new Error('Failed to load postboxes.json'); return r.json(); });
       }
-      function addDataToMap(features){
-        const markers=[];
-        features.forEach(p=>{
-          if(typeof p.lat!=='number'||typeof p.lng!=='number') return;
-          const m=createMarker(p); markers.push(m); allMarkers.push(m);
-          (p.status==='proposed_closure'?closureCluster:retainedCluster).addLayer(m);
+      function addDataToMap(features) {
+        const markers = [];
+        features.forEach(p => {
+          if (typeof p.lat !== 'number' || typeof p.lng !== 'number') return;
+          const m = createMarker(p);
+          markers.push(m);
+          allMarkers.push(m);
+          (p.status === 'proposed_closure' ? closureCluster : retainedCluster).addLayer(m);
         });
-        map.addLayer(retainedCluster); map.addLayer(closureCluster);
-       if (markers.length) {
-        const g = L.featureGroup(markers);
-        const bounds = g.getBounds().pad(0.2);
 
-        // Add left padding to shift map content right (make space for panel)
-        map.fitBounds(bounds, {
-          paddingTopLeft: [320, 20],    // panel width ~320px
-          paddingBottomRight: [20, 20]  // small margin
+        map.addLayer(retainedCluster);
+        map.addLayer(closureCluster);
+
+        if (!markers.length) {
+          map.setView(MAP_CENTER, MAP_ZOOM);
+          return;
+        }
+
+        // Bounds for all markers
+        const group  = L.featureGroup(markers);
+        const bounds = group.getBounds().pad(0.2);
+
+        // Compute left padding from the real panel size/position
+        function computeLeftPad() {
+          const panel = document.getElementById('panel');
+          if (!panel || panel.style.display === 'none') return 20;
+          const styles = getComputedStyle(panel);
+          const left   = parseInt(styles.left, 10) || 0;      // e.g. 10px
+          const width  = panel.offsetWidth || 320;            // actual rendered width
+          const gutter = 10;                                   // little breathing room
+          return left + width + gutter;                        // total left padding in px
+        }
+
+        // Defer the fit one frame so clusters are present and map size is final
+        requestAnimationFrame(() => {
+          map.fitBounds(bounds, {
+            paddingTopLeft:     [computeLeftPad(), 20],
+            paddingBottomRight: [20, 20]
+          });
         });
-      } else {
-        map.setView(MAP_CENTER, MAP_ZOOM);
       }
 
       // 6) Filters
