@@ -167,10 +167,17 @@
           (p.status==='proposed_closure'?closureCluster:retainedCluster).addLayer(m);
         });
         map.addLayer(retainedCluster); map.addLayer(closureCluster);
-        if(markers.length){
-          const g=L.featureGroup(markers); map.fitBounds(g.getBounds().pad(0.2));
-        } else { map.setView(MAP_CENTER, MAP_ZOOM); }
-        console.log('Loaded markers:', markers.length);
+       if (markers.length) {
+        const g = L.featureGroup(markers);
+        const bounds = g.getBounds().pad(0.2);
+
+        // Add left padding to shift map content right (make space for panel)
+        map.fitBounds(bounds, {
+          paddingTopLeft: [320, 20],    // panel width ~320px
+          paddingBottomRight: [20, 20]  // small margin
+        });
+      } else {
+        map.setView(MAP_CENTER, MAP_ZOOM);
       }
 
       // 6) Filters
