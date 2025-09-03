@@ -107,267 +107,245 @@
   <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
 
   <script>
-    // Wrap everything to ensure DOM exists
-    (function(){
-      const MAP_CENTER = [49.458, -2.56], MAP_ZOOM = 12, NEAREST_COUNT = 5;
+  (function () {
+    const MAP_CENTER = [49.458, -2.56], MAP_ZOOM = 12, NEAREST_COUNT = 5;
+    const GUERNSEY_BOUNDS = L.latLngBounds([49.42, -2.70], [49.51, -2.49]);
 
-      // 1) Init map
-      const map = L.map('map').setView(MAP_CENTER, MAP_ZOOM);
-      console.log('Map ok?', map instanceof L.Map);
-      
-      // --- Basemap (Carto Light / Positron) ---
-      const base = L.tileLayer(
-        'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?v=3', // cache-bust
-        {
-          attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors ' +
-            '&copy; <a href="https://carto.com/">CARTO</a>',
-          subdomains: 'abcd',
-          maxZoom: 20
-        }
-      ).addTo(map);
+    // --- Map (single declaration) ---
+    const map = L.map('map', {
+      center: MAP_CENTER,
+      zoom: MAP_ZOOM,
+      maxBounds: GUERNSEY_BOUNDS.pad(0.20),
+      maxBoundsViscosity: 0.8,
+      minZoom: 11
+    });
 
-        const GUERNSEY_BOUNDS = L.latLngBounds([49.42, -2.70], [49.51, -2.49]);
-        const map = L.map('map', {
-          center: MAP_CENTER,
-          zoom: MAP_ZOOM,
-          maxBounds: GUERNSEY_BOUNDS.pad(0.20), // keeps view on-island
-          maxBoundsViscosity: 0.8,               // soft lock at the edge
-          minZoom: 11                             // avoids over-zoomed grey starts
-        });
-                              
+    // --- Basemap (Carto Light) ---
+    const base = L.tileLayer(
+      'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?v=3',
+      {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors ' +
+          '&copy; <a href="https://carto.com/">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 20
+      }
+    ).addTo(map);
+
+    // --- Panel show/hide & embed mode ---
+    const panel   = document.getElementById('panel');
+    const hideBtn = document.getElementById('hidePanel');
+    const showBtn = document.getElementById('showPanel');
+
+    function openPanel()  { panel.style.display = 'block'; showBtn.style.display = 'none';  setTimeout(()=>map.invalidateSize(),100); }
+    function closePanel() { panel.style.display = 'none';  showBtn.style.display = 'block'; setTimeout(()=>map.invalidateSize(),100); }
+
+    hideBtn.addEventListener('click', closePanel);
+    showBtn.addEventListener('click', openPanel);
+
+    const params = new URLSearchParams(location.search);
+    if (params.get('embed') === '1') {
+      closePanel(); // start hidden in embeds
+    }
+
+    // --- Relayout helpers (no recursion) ---
     function settleReflow() {
-      let n = 0;
-      const bump = () => {
-        map.invalidateSize(true);
-        if (++n < 8) setTimeout(bump, 150); // ~1.2s total
-      };
-      bump();
+      [40, 200, 600].forEach(t => setTimeout(() => map.invalidateSize(true), t));
     }
     window.addEventListener('load', settleReflow);
-    new ResizeObserver(settleReflow).observe(document.body);
-    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(settleReflow); }
+    if (window.ResizeObserver) new ResizeObserver(settleReflow).observe(document.body);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(settleReflow);
     base.on('load', settleReflow);
 
-    
+    // --- Clusters & storage ---
+    const retainedCluster = L.markerClusterGroup({ chunkedLoading: true });
+    const closureCluster  = L.markerClusterGroup({ chunkedLoading: true });
+    const allMarkers = [];
+    const idToMarker = new Map();
+    let __mkCounter = 0;
 
-      console.log('Basemap URL:', base._url); // should include basemaps.cartocdn.com/light_all
+    // --- Icons & popup ---
+    function makePostboxIcon(color = '#2ecc71') {
+      const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="32" viewBox="0 0 24 32">
+          <rect x="6" y="2" width="12" height="24" rx="2" ry="2" fill="${color}" stroke="black" stroke-width="1"/>
+          <rect x="8" y="6" width="8" height="2" fill="black"/>
+          <rect x="10" y="22" width="4" height="6" fill="${color}" stroke="black" stroke-width="1"/>
+        </svg>`;
+      return L.divIcon({ html: svg, className: '', iconSize: [24, 32], iconAnchor: [12, 32], popupAnchor: [0, -32] });
+    }
+    function escapeHTML(s) { return String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
+    function popupHTML(p) {
+      return `<div class="popup">
+        <h3 style="margin:0 0 4px;font-size:16px">${escapeHTML(p.name||'Postbox')}</h3>
+        <div class="meta" style="color:#555;font-size:13px;margin-bottom:6px">${escapeHTML(p.address||'')}</div>
+        ${p.collection_times?`<div style="font-size:13px"><strong>Collection times</strong><br>${escapeHTML(p.collection_times).replace(/\n/g,'<br>')}</div>`:''}
+        ${p.id?`<div style="font-size:12px;color:#777;margin-top:6px">ID: ${escapeHTML(p.id)}</div>`:''}
+      </div>`;
+    }
+    function createMarker(p) {
+      const color = (p.status === 'proposed_closure') ? '#e74c3c' : '#2ecc71';
+      const m = L.marker([p.lat, p.lng], { icon: makePostboxIcon(color) }).bindPopup(popupHTML(p));
+      m.featureProps = p;
+      const key = String(p.id ?? `mk_${++__mkCounter}`);
+      m._key = key;
+      idToMarker.set(key, m);
+      m._clusterGroup = (p.status === 'proposed_closure') ? closureCluster : retainedCluster;
+      return m;
+    }
 
-      // 2) Panel show/hide
-      const panel = document.getElementById('panel');
-      const hideBtn = document.getElementById('hidePanel');
-      const showBtn = document.getElementById('showPanel');
-      hideBtn.addEventListener('click', ()=>{ panel.style.display='none'; showBtn.style.display='block'; setTimeout(()=>map.invalidateSize(),100); });
-      showBtn.addEventListener('click', ()=>{ panel.style.display='block'; showBtn.style.display='none'; setTimeout(()=>map.invalidateSize(),100); });
-      window.addEventListener('resize', ()=> setTimeout(()=>map.invalidateSize(),100));
+    // --- Data load ---
+    function loadData() {
+      return fetch('postboxes.json', { cache: 'no-cache' })
+        .then(r => { if (!r.ok) throw new Error('Failed to load postboxes.json'); return r.json(); });
+    }
+    function addDataToMap(features) {
+      const markers = [];
+      features.forEach(p => {
+        if (typeof p.lat !== 'number' || typeof p.lng !== 'number') return;
+        const m = createMarker(p);
+        markers.push(m);
+        allMarkers.push(m);
+        (p.status === 'proposed_closure' ? closureCluster : retainedCluster).addLayer(m);
+      });
+      map.addLayer(retainedCluster);
+      map.addLayer(closureCluster);
 
-      // 3) Clusters + storage
-      const retainedCluster = L.markerClusterGroup({ chunkedLoading:true });
-      const closureCluster  = L.markerClusterGroup({ chunkedLoading:true });
-      const allMarkers = []; const idToMarker = new Map(); let __mkCounter = 0;
+      const dataBounds = markers.length ? L.featureGroup(markers).getBounds().pad(0.12) : GUERNSEY_BOUNDS;
 
-      // 4) Icons & popup
-      function makePostboxIcon(color='#2ecc71'){
-        const svg = `
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="32" viewBox="0 0 24 32">
-            <rect x="6" y="2" width="12" height="24" rx="2" ry="2" fill="${color}" stroke="black" stroke-width="1"/>
-            <rect x="8" y="6" width="8" height="2" fill="black"/>
-            <rect x="10" y="22" width="4" height="6" fill="${color}" stroke="black" stroke-width="1"/>
-          </svg>`;
-        return L.divIcon({ html: svg, className:'', iconSize:[24,32], iconAnchor:[12,32], popupAnchor:[0,-32] });
+      function leftPadPx() {
+        if (panel.style.display === 'none') return 10;
+        return (panel.offsetLeft || 10) + (panel.offsetWidth || 320) + 12;
       }
-      function escapeHTML(s){ return String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
-      function popupHTML(p){
-        return `<div class="popup">
-          <h3 style="margin:0 0 4px;font-size:16px">${escapeHTML(p.name||'Postbox')}</h3>
-          <div class="meta" style="color:#555;font-size:13px;margin-bottom:6px">${escapeHTML(p.address||'')}</div>
-          ${p.collection_times?`<div style="font-size:13px"><strong>Collection times</strong><br>${escapeHTML(p.collection_times).replace(/\n/g,'<br>')}</div>`:''}
-          ${p.id?`<div style="font-size:12px;color:#777;margin-top:6px">ID: ${escapeHTML(p.id)}</div>`:''}
-        </div>`;
-      }
-      function createMarker(p){
-        const color = (p.status==='proposed_closure') ? '#e74c3c' : '#2ecc71';
-        const m = L.marker([p.lat,p.lng], { icon: makePostboxIcon(color) }).bindPopup(popupHTML(p));
-        m.featureProps=p;
-        const key = String(p.id ?? `mk_${++__mkCounter}`); m._key=key; idToMarker.set(key,m);
-        m._clusterGroup = (p.status==='proposed_closure') ? closureCluster : retainedCluster;
-        return m;
-      }
-
-      // 5) Load data
-      function loadData(){
-        return fetch('postboxes.json', { cache:'no-cache' })
-          .then(r=>{ if(!r.ok) throw new Error('Failed to load postboxes.json'); return r.json(); });
-      }
-      function addDataToMap(features) {
-        const markers = [];
-        features.forEach(p => {
-          if (typeof p.lat !== 'number' || typeof p.lng !== 'number') return;
-          const m = createMarker(p);
-          markers.push(m);
-          allMarkers.push(m);
-          (p.status === 'proposed_closure' ? closureCluster : retainedCluster).addLayer(m);
+      function applyFit() {
+        map.fitBounds(dataBounds, {
+          paddingTopLeft: [leftPadPx(), 10],
+          paddingBottomRight: [10, 10],
+          maxZoom: (window.innerWidth <= 640) ? 14 : 15
         });
-
-        map.addLayer(retainedCluster);
-        map.addLayer(closureCluster);
-
-        const dataBounds = markers.length
-          ? L.featureGroup(markers).getBounds().pad(0.12)   // small pad; we’ll add left-pad for panel
-          : GUERNSEY_BOUNDS;
-
-        function leftPadPx() {
-          const panel = document.getElementById('panel');
-          if (!panel || panel.style.display === 'none') return 10;
-          return (panel.offsetLeft || 10) + (panel.offsetWidth || 320) + 12; // left + width + gutter
-        }
-
-        const applyFit = () => {
-          const padLeft = leftPadPx();
-          const padTop  = 10;            // keep small vertical padding
-          const padBR   = 10;
-
-          map.whenReady(applyFit);
-          base.on('load', applyFit);
-
-          map.fitBounds(dataBounds, {
-            paddingTopLeft:     [padLeft, padTop],   // horizontal shift only
-            paddingBottomRight: [padBR,  padBR],
-            maxZoom: (window.innerWidth <= 640) ? 14 : 15  // avoid over-zoom grey on phones
-          });
-
-          // Tiny corrective nudge up to counter any residual vertical bias on some embeds
-          if (panel && panel.style.display !== 'none' && window.innerWidth > 640) {
-            map.panBy([0, -20], { animate: false });  // 20px up
-          }
-
-          settleReflow();
-        };
-
-        // Run after clusters render and layout settles
-        requestAnimationFrame(applyFit);
-
-        // Re-apply when UI/layout changes
-        document.getElementById('hidePanel')?.addEventListener('click', () => setTimeout(applyFit, 50));
-        document.getElementById('showPanel')?.addEventListener('click', () => setTimeout(applyFit, 50));
-        window.addEventListener('orientationchange', () => setTimeout(applyFit, 200));
-      }
-
-      // 6) Filters
-      const q = document.getElementById('q');
-      function applyFilter(){
-        const term = q.value.trim().toLowerCase();
-        retainedCluster.clearLayers(); closureCluster.clearLayers();
-        const matches=[];
-        allMarkers.forEach(m=>{
-          const p=m.featureProps||{};
-          const hay=`${p.name||''} ${p.address||''} ${p.id||''} ${p.status||''}`.toLowerCase();
-          const ok=!term||hay.includes(term);
-          if(ok){ matches.push(m); m._clusterGroup.addLayer(m); } else { m.closePopup(); }
-        });
-        if(matches.length>0 && matches.length<50){
-          const g=L.featureGroup(matches); map.fitBounds(g.getBounds().pad(0.2));
+        // tiny nudge to counter occasional vertical bias
+        if (panel.style.display !== 'none' && window.innerWidth > 640) {
+          map.panBy([0, -20], { animate: false });
         }
       }
-      q.addEventListener('input', ()=>{ clearTimeout(q._t); q._t=setTimeout(applyFilter,150); });
 
-      // 7) Nearest
-      const nearestEl=document.getElementById('nearestList'); let originMarker=null, rays=[];
-      function clearOriginAndRays(){ if(originMarker){ map.removeLayer(originMarker); originMarker=null; } rays.forEach(l=>map.removeLayer(l)); rays=[]; }
-      function haversine(a,b){ const [lat1,lon1]=Array.isArray(a)?a:[a.lat,a.lng]; const [lat2,lon2]=Array.isArray(b)?b:[b.lat,b.lng];
-        const R=6371e3, φ1=lat1*Math.PI/180, φ2=lat2*Math.PI/180, Δφ=(lat2-lat1)*Math.PI/180, Δλ=(lon2-lon1)*Math.PI/180;
-        const s=Math.sin(Δφ/2)**2+Math.cos(φ1)*Math.cos(φ2)*Math.sin(Δλ/2)**2; return 2*R*Math.asin(Math.sqrt(s)); }
-      function nearestTo(latlng,n=NEAREST_COUNT){ return allMarkers.map(m=>({m,d:haversine([latlng.lat,latlng.lng],m.getLatLng())})).sort((a,b)=>a.d-b.d).slice(0,n); }
-      function renderNearest(latlng){
-        clearOriginAndRays();
-        originMarker=L.marker(latlng,{title:'Your point'}).addTo(map).bindPopup('Search origin').openPopup();
-        const results=nearestTo(latlng);
-        if(!results.length){ nearestEl.innerHTML='<small>No postboxes loaded.</small>'; return; }
-        const bounds=L.latLngBounds([latlng]);
-        nearestEl.innerHTML=results.map(({m,d})=>{
-          const p=m.featureProps||{}; const km=(d/1000).toFixed(d<10000?2:1); const ll=m.getLatLng(); bounds.extend(ll);
-          const line=L.polyline([latlng,ll],{weight:2,opacity:.5}).addTo(map); rays.push(line);
-          return `<div class="item" data-key="${m._key}"><strong>${escapeHTML(p.name||'Postbox')}</strong><br><small>${escapeHTML(p.address||'')}</small><br><small>${km} km</small></div>`;
-        }).join('');
-        nearestEl.querySelectorAll('.item').forEach(el=>el.addEventListener('click',()=>{
-          const id=el.getAttribute('data-key'); const m=idToMarker.get(id); if(m){ map.setView(m.getLatLng(),17,{animate:true}); m.openPopup(); }
-        }));
-        map.fitBounds(bounds.pad(0.2));
-      }
+      // Run once when map/base ready, and on UI changes (no recursion)
+      map.whenReady(applyFit);
+      base.on('load', applyFit);
+      requestAnimationFrame(applyFit);
+      hideBtn.addEventListener('click', () => setTimeout(applyFit, 50));
+      showBtn.addEventListener('click', () => setTimeout(applyFit, 50));
+      window.addEventListener('orientationchange', () => setTimeout(applyFit, 200));
+    }
 
-      // 8) Geocode (same as before, trimmed)
-      function normalisePostcode(s){ return String(s||'').toUpperCase().replace(/\s+/g,''); }
-      function displayHasPostcode(r,pc){ const inAddr=r.address&&r.address.postcode&&normalisePostcode(r.address.postcode)===pc; const inName=typeof r.display_name==='string'&&normalisePostcode(r.display_name).includes(pc); return inAddr||inName; }
-      function fallbackFromDataset(pcInput){
-        const pc=normalisePostcode(pcInput); const outward=pc.replace(/^([A-Z]+[0-9][0-9A-Z]?)[0-9][A-Z]{2}$/,'$1');
-        const matches=allMarkers.filter(m=>{ const addr=(m.featureProps?.address||'').toUpperCase(); return addr.replace(/\s+/g,'').includes(pc) || (outward && addr.includes(outward)); });
-        if(!matches.length) return null; let lat=0,lng=0; matches.forEach(m=>{ lat+=m.getLatLng().lat; lng+=m.getLatLng().lng; }); return L.latLng(lat/matches.length, lng/matches.length);
-      }
-      const GG_VIEWBOX=[-2.70,49.42,-2.49,49.51];
-      async function geocode(query){
-        const raw=query.trim(); if(!raw) throw new Error('Empty query');
-        const pc=normalisePostcode(raw); const looksLikeGY=/^GY[0-9][0-9A-Z]?[0-9][A-Z]{2}$/.test(pc);
-        async function nominatim(params){
-          const u=new URL('https://nominatim.openstreetmap.org/search');
-          u.searchParams.set('format','json'); u.searchParams.set('limit','10'); u.searchParams.set('countrycodes','gg');
-          u.searchParams.set('addressdetails','1'); u.searchParams.set('viewbox',GG_VIEWBOX.join(',')); u.searchParams.set('bounded','1');
-          Object.entries(params).forEach(([k,v])=>u.searchParams.set(k,v));
-          const res=await fetch(u.toString(),{headers:{'Accept-Language':'en'}}); if(!res.ok) return [];
-          return res.json();
-        }
-        if(looksLikeGY){
-          const pcPretty=pc.replace(/^(.+?)([0-9][A-Z]{2})$/,'$1 $2');
-          let c=await nominatim({ postalcode: pcPretty }); let r=c.find(x=>displayHasPostcode(x,pc))||c.find(x=>x.type==='postcode'); if(r) return L.latLng(+r.lat, +r.lon);
-          c=await nominatim({ q: pcPretty }); r=c.find(x=>displayHasPostcode(x,pc))||c.find(x=>x.type==='postcode')||c[0]; if(r) return L.latLng(+r.lat, +r.lon);
-          const inferred=fallbackFromDataset(pcPretty); if(inferred) return inferred; throw new Error('No results');
-        }
-        const q=/guernsey/i.test(raw)?raw:`${raw}, Guernsey`; const c=await nominatim({ q }); return c[0]?L.latLng(+c[0].lat,+c[0].lon):Promise.reject('No results');
-      }
-
-      const params = new URLSearchParams(location.search);
-        if (params.get('embed') === '1') {
-          panel.style.display = 'none';
-          showBtn.style.display = 'block';
-          settleReflow();
-      }
-
-      // 9) UI wires
-      document.getElementById('find').addEventListener('click', async ()=>{
-        const val=document.getElementById('addr').value.trim(); if(!val) return;
-        try{ const ll=await geocode(val); renderNearest(ll); } catch{ nearestEl.innerHTML='<small>Couldn’t find that address/postcode.</small>'; }
+    // --- Text filter ---
+    const q = document.getElementById('q');
+    function applyFilter() {
+      const term = q.value.trim().toLowerCase();
+      retainedCluster.clearLayers(); closureCluster.clearLayers();
+      const matches = [];
+      allMarkers.forEach(m => {
+        const p = m.featureProps || {};
+        const hay = `${p.name||''} ${p.address||''} ${p.id||''} ${p.status||''}`.toLowerCase();
+        if (!term || hay.includes(term)) { matches.push(m); m._clusterGroup.addLayer(m); } else { m.closePopup(); }
       });
-      document.getElementById('addr').addEventListener('keydown', async (e)=>{
-        if(e.key==='Enter'){ e.preventDefault(); const v=e.currentTarget.value.trim(); if(!v) return;
-          try{ const ll=await geocode(v); renderNearest(ll); } catch{ nearestEl.innerHTML='<small>Couldn’t find that address/postcode.</small>'; }
-        }
-      });
-      document.getElementById('myloc').addEventListener('click', ()=>{
-        if(!navigator.geolocation){ nearestEl.innerHTML='<small>Geolocation isn’t supported in this browser.</small>'; return; }
-        navigator.geolocation.getCurrentPosition(
-          pos=>{ const ll=L.latLng(pos.coords.latitude,pos.coords.longitude); map.setView(ll,15,{animate:true}); renderNearest(ll); },
-          ()=> nearestEl.innerHTML='<small>Couldn’t get your location.</small>',
-          { enableHighAccuracy:true, timeout:10000 }
-        );
-      });
-      document.getElementById('clear').addEventListener('click', ()=>{
-        document.getElementById('addr').value=''; nearestEl.innerHTML='<small>Enter an address/postcode or use your location.</small>'; clearOriginAndRays(); map.setView(MAP_CENTER, MAP_ZOOM);
-      });
-
-      function updateToggles(){
-        const showR=document.getElementById('showRetained').checked;
-        const showC=document.getElementById('showClosure').checked;
-        if(showR){ map.addLayer(retainedCluster);} else { map.removeLayer(retainedCluster); }
-        if(showC){ map.addLayer(closureCluster);} else { map.removeLayer(closureCluster); }
+      if (matches.length > 0 && matches.length < 50) {
+        const g = L.featureGroup(matches); map.fitBounds(g.getBounds().pad(0.2));
       }
-      document.getElementById('showRetained').addEventListener('change', updateToggles);
-      document.getElementById('showClosure').addEventListener('change', updateToggles);
+    }
+    q.addEventListener('input', () => { clearTimeout(q._t); q._t = setTimeout(applyFilter, 150); });
 
-      // 10) Go
-      loadData().then(addDataToMap).catch(err=>{
-        console.error(err);
-        alert('Failed to load postboxes.json (make sure the file sits next to index.html on GitHub Pages).');
-      });
-    })();
+    // --- Nearest ---
+    const nearestEl = document.getElementById('nearestList');
+    let originMarker = null, rays = [];
+    function clearOriginAndRays() { if (originMarker) { map.removeLayer(originMarker); originMarker = null; } rays.forEach(l=>map.removeLayer(l)); rays = []; }
+    function haversine(a,b){ const [lat1,lon1]=Array.isArray(a)?a:[a.lat,a.lng]; const [lat2,lon2]=Array.isArray(b)?b:[b.lat,b.lng];
+      const R=6371e3, φ1=lat1*Math.PI/180, φ2=lat2*Math.PI/180, Δφ=(lat2-lat1)*Math.PI/180, Δλ=(lon2-lon1)*Math.PI/180;
+      const s=Math.sin(Δφ/2)**2+Math.cos(φ1)*Math.cos(φ2)*Math.sin(Δλ/2)**2; return 2*R*Math.asin(Math.sqrt(s)); }
+    function nearestTo(latlng,n=NEAREST_COUNT){ return allMarkers.map(m=>({m,d:haversine([latlng.lat,latlng.lng],m.getLatLng())})).sort((a,b)=>a.d-b.d).slice(0,n); }
+    function renderNearest(latlng){
+      clearOriginAndRays();
+      originMarker = L.marker(latlng,{title:'Your point'}).addTo(map).bindPopup('Search origin').openPopup();
+      const results = nearestTo(latlng);
+      if (!results.length) { nearestEl.innerHTML = '<small>No postboxes loaded.</small>'; return; }
+      const bounds = L.latLngBounds([latlng]);
+      nearestEl.innerHTML = results.map(({m,d})=>{
+        const p=m.featureProps||{}; const km=(d/1000).toFixed(d<10000?2:1); const ll=m.getLatLng(); bounds.extend(ll);
+        const line=L.polyline([latlng,ll],{weight:2,opacity:.5}).addTo(map); rays.push(line);
+        return `<div class="item" data-key="${m._key}"><strong>${escapeHTML(p.name||'Postbox')}</strong><br><small>${escapeHTML(p.address||'')}</small><br><small>${km} km</small></div>`;
+      }).join('');
+      nearestEl.querySelectorAll('.item').forEach(el=>el.addEventListener('click',()=>{
+        const id=el.getAttribute('data-key'); const m=idToMarker.get(id); if(m){ map.setView(m.getLatLng(),17,{animate:true}); m.openPopup(); }
+      }));
+      map.fitBounds(bounds.pad(0.2));
+    }
+
+    // --- Geocoding ---
+    function normalisePostcode(s){ return String(s||'').toUpperCase().replace(/\s+/g,''); }
+    function displayHasPostcode(r,pc){ const inAddr=r.address&&r.address.postcode&&normalisePostcode(r.address.postcode)===pc; const inName=typeof r.display_name==='string'&&normalisePostcode(r.display_name).includes(pc); return inAddr||inName; }
+    function fallbackFromDataset(pcInput){
+      const pc=normalisePostcode(pcInput); const outward=pc.replace(/^([A-Z]+[0-9][0-9A-Z]?)[0-9][A-Z]{2}$/,'$1');
+      const matches=allMarkers.filter(m=>{ const addr=(m.featureProps?.address||'').toUpperCase(); return addr.replace(/\s+/g,'').includes(pc) || (outward && addr.includes(outward)); });
+      if(!matches.length) return null; let lat=0,lng=0; matches.forEach(m=>{ lat+=m.getLatLng().lat; lng+=m.getLatLng().lng; }); return L.latLng(lat/matches.length, lng/matches.length);
+    }
+    const GG_VIEWBOX=[-2.70,49.42,-2.49,49.51];
+    async function geocode(query){
+      const raw=query.trim(); if(!raw) throw new Error('Empty query');
+      const pc=normalisePostcode(raw); const looksLikeGY=/^GY[0-9][0-9A-Z]?[0-9][A-Z]{2}$/.test(pc);
+      async function nominatim(params){
+        const u=new URL('https://nominatim.openstreetmap.org/search');
+        u.searchParams.set('format','json'); u.searchParams.set('limit','10'); u.searchParams.set('countrycodes','gg');
+        u.searchParams.set('addressdetails','1'); u.searchParams.set('viewbox',GG_VIEWBOX.join(',')); u.searchParams.set('bounded','1');
+        Object.entries(params).forEach(([k,v])=>u.searchParams.set(k,v));
+        const res=await fetch(u.toString(),{headers:{'Accept-Language':'en'}}); if(!res.ok) return [];
+        return res.json();
+      }
+      if(looksLikeGY){
+        const pcPretty=pc.replace(/^(.+?)([0-9][A-Z]{2})$/,'$1 $2');
+        let c=await nominatim({ postalcode: pcPretty }); let r=c.find(x=>displayHasPostcode(x,pc))||c.find(x=>x.type==='postcode'); if(r) return L.latLng(+r.lat, +r.lon);
+        c=await nominatim({ q: pcPretty }); r=c.find(x=>displayHasPostcode(x,pc))||c.find(x=>x.type==='postcode')||c[0]; if(r) return L.latLng(+r.lat, +r.lon);
+        const inferred=fallbackFromDataset(pcPretty); if(inferred) return inferred; throw new Error('No results');
+      }
+      const q=/guernsey/i.test(raw)?raw:`${raw}, Guernsey`; const c=await nominatim({ q }); return c[0]?L.latLng(+c[0].lat,+c[0].lon):Promise.reject('No results');
+    }
+
+    // --- UI wires ---
+    document.getElementById('find').addEventListener('click', async ()=>{
+      const val=document.getElementById('addr').value.trim(); if(!val) return;
+      try{ const ll=await geocode(val); renderNearest(ll); } catch{ nearestEl.innerHTML='<small>Couldn’t find that address/postcode.</small>'; }
+    });
+    document.getElementById('addr').addEventListener('keydown', async (e)=>{
+      if(e.key==='Enter'){ e.preventDefault(); const v=e.currentTarget.value.trim(); if(!v) return;
+        try{ const ll=await geocode(v); renderNearest(ll); } catch{ nearestEl.innerHTML='<small>Couldn’t find that address/postcode.</small>'; }
+      }
+    });
+    document.getElementById('myloc').addEventListener('click', ()=>{
+      if(!navigator.geolocation){ nearestEl.innerHTML='<small>Geolocation isn’t supported in this browser.</small>'; return; }
+      navigator.geolocation.getCurrentPosition(
+        pos=>{ const ll=L.latLng(pos.coords.latitude,pos.coords.longitude); map.setView(ll,15,{animate:true}); renderNearest(ll); },
+        ()=> nearestEl.innerHTML='<small>Couldn’t get your location.</small>',
+        { enableHighAccuracy:true, timeout:10000 }
+      );
+    });
+    document.getElementById('clear').addEventListener('click', ()=>{
+      document.getElementById('addr').value=''; nearestEl.innerHTML='<small>Enter an address/postcode or use your location.</small>'; clearOriginAndRays(); map.setView(MAP_CENTER, MAP_ZOOM);
+    });
+
+    function updateToggles(){
+      const showR=document.getElementById('showRetained').checked;
+      const showC=document.getElementById('showClosure').checked;
+      if(showR){ map.addLayer(retainedCluster);} else { map.removeLayer(retainedCluster); }
+      if(showC){ map.addLayer(closureCluster);} else { map.removeLayer(closureCluster); }
+    }
+    document.getElementById('showRetained').addEventListener('change', updateToggles);
+    document.getElementById('showClosure').addEventListener('change', updateToggles);
+
+    // --- Go ---
+    loadData().then(addDataToMap).catch(err=>{
+      console.error(err);
+      alert('Failed to load postboxes.json (make sure the file sits next to index.html on GitHub Pages).');
+    });
+  })();
   </script>
 </body>
 </html>
